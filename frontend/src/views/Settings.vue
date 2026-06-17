@@ -616,6 +616,41 @@
           </div>
           <button class="btn btn-primary" @click="savePlatformSettings">保存微信 Bot 设置</button>
         </div>
+        <div v-else-if="activeServiceTab === 'youtube'">
+          <h4>🎬 YouTube 增强配置</h4>
+          <div class="platform-info-banner">
+            <p>🔑 配置 PO Token 可解决 YouTube bot 检测问题</p>
+            <p>🔗 获取方式：浏览器 F12 → Network → 搜索 "get" → 复制 poToken 和 visitorData</p>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-item full-width">
+              <label>PO Token（可选）</label>
+              <input v-model="settingsForm.youtube_po_token" type="text" class="input" placeholder="MnGjQ...（留空使用默认）" />
+              <p class="form-hint">用于绕过 YouTube bot 检测，留空则使用默认客户端</p>
+            </div>
+            <div class="form-item full-width">
+              <label>Visitor Data（可选）</label>
+              <input v-model="settingsForm.youtube_visitor_data" type="text" class="input" placeholder="Cgt...（留空使用默认）" />
+              <p class="form-hint">访问者数据，配合 PO Token 使用</p>
+            </div>
+          </div>
+          <button class="btn btn-primary" @click="savePlatformSettings">保存 YouTube 设置</button>
+        </div>
+        <div v-else-if="activeServiceTab === 'kuaishou'">
+          <h4>📱 快手增强配置</h4>
+          <div class="platform-info-banner">
+            <p>🍪 快手需要 Cookies 才能下载高清视频</p>
+            <p>🔗 获取方式：浏览器登录快手 → F12 → Application → Cookies → 复制全部</p>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-item full-width">
+              <label>快手 Cookies</label>
+              <textarea v-model="settingsForm.kuaishou_cookies" class="input" rows="6" placeholder="粘贴 Netscape 格式 Cookies..."></textarea>
+              <p class="form-hint">粘贴从浏览器导出的 Cookies（Netscape 格式）</p>
+            </div>
+          </div>
+          <button class="btn btn-primary" @click="savePlatformSettings">保存快手设置</button>
+        </div>
         <div v-else class="platform-placeholder">
           <h4>{{ platformTabs.find(tab => tab.id === activeServiceTab)?.name }}</h4>
           <p>当前平台暂无可配置项。您可以在此处查看平台支持状态与说明。</p>
@@ -758,7 +793,12 @@ const settingsForm = ref({
   // QQ Bot
   qq_bot_api_url: '',
   // 微信 ClawBot
-  wechat_clawbot_callback_url: ''
+  wechat_clawbot_callback_url: '',
+  // YouTube 增强
+  youtube_po_token: '',
+  youtube_visitor_data: '',
+  // 快手
+  kuaishou_cookies: ''
 })
 const platformTabs = ref([
   { id: 'telegram', name: 'Telegram' },
@@ -842,7 +882,12 @@ async function loadSettings() {
       // QQ Bot
       qq_bot_api_url: data.qq_bot_api_url || '',
       // 微信 ClawBot
-      wechat_clawbot_callback_url: data.wechat_clawbot_callback_url || ''
+      wechat_clawbot_callback_url: data.wechat_clawbot_callback_url || '',
+      // YouTube 增强
+      youtube_po_token: data.youtube_po_token || '',
+      youtube_visitor_data: data.youtube_visitor_data || '',
+      // 快手
+      kuaishou_cookies: data.kuaishou_cookies || '',
     }
 
     // 填充代理原始输入（去掉协议前缀方便编辑）
@@ -942,7 +987,12 @@ async function savePlatformSettings() {
       // QQ Bot
       qq_bot_api_url: settingsForm.value.qq_bot_api_url,
       // 微信 ClawBot
-      wechat_clawbot_callback_url: settingsForm.value.wechat_clawbot_callback_url
+      wechat_clawbot_callback_url: settingsForm.value.wechat_clawbot_callback_url,
+      // YouTube 增强
+      youtube_po_token: settingsForm.value.youtube_po_token,
+      youtube_visitor_data: settingsForm.value.youtube_visitor_data,
+      // 快手
+      kuaishou_cookies: settingsForm.value.kuaishou_cookies
     })
     alert('✅ 平台设置已保存')
   } catch (error) {

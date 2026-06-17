@@ -28,10 +28,11 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # 安装 Python 依赖
+# 安装 Python 依赖（yt-dlp 指定最新版）
 RUN pip install --no-cache-dir \
     fastapi \
     uvicorn \
-    yt-dlp \
+    "yt-dlp>=2025.6.1" \
     psutil \
     python-multipart \
     tomli \

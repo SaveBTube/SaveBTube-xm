@@ -124,6 +124,11 @@ async def get_settings(authorization: str = Header(None)):
         "qq_bot_api_url": get_setting('qq_bot_api_url', ''),
         # 微信 ClawBot
         "wechat_clawbot_callback_url": get_setting('wechat_clawbot_callback_url', ''),
+        # YouTube 增强
+        "youtube_po_token": get_setting('youtube_po_token', ''),
+        "youtube_visitor_data": get_setting('youtube_visitor_data', ''),
+        # 快手
+        "kuaishou_cookies": get_setting('kuaishou_cookies', ''),
     }
 
 
@@ -151,6 +156,11 @@ async def save_settings(req: dict, authorization: str = Header(None)):
         'qq_bot_api_url': ('str', 'qq_bot_api_url'),
         # 微信 ClawBot
         'wechat_clawbot_callback_url': ('str', 'wechat_clawbot_callback_url'),
+        # YouTube 增强
+        'youtube_po_token': ('str', 'youtube_po_token'),
+        'youtube_visitor_data': ('str', 'youtube_visitor_data'),
+        # 快手
+        'kuaishou_cookies': ('str', 'kuaishou_cookies'),
     }
     for key, (typ, setting_key) in setting_keys.items():
         if key in req:
