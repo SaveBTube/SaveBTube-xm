@@ -59,6 +59,25 @@ def ytdl_progress_hook(d: Dict, task_id: str):
         }
 
         update_download_task(task_id, progress=percent, speed=speed, status="downloading")
+        
+        # WebSocket 推送
+        try:
+            from backend.services.ws_manager import ws_manager
+            task = get_download_task(task_id)
+            if task and task.get('user_id'):
+                import asyncio
+                asyncio.run_coroutine_threadsafe(
+                    ws_manager.notify_download_progress(task_id, task['user_id'], {
+                        "status": "downloading",
+                        "percent": percent,
+                        "speed": speed,
+                        "eta": eta,
+                        "filename": filename
+                    }),
+                    asyncio.get_event_loop()
+                )
+        except Exception:
+            pass
 
     elif d['status'] == 'finished':
         filename = d.get('filename', '')
@@ -85,6 +104,23 @@ def ytdl_progress_hook(d: Dict, task_id: str):
 
         today = datetime.now().strftime("%Y-%m-%d")
         update_daily_stats(today, total_downloads=1, success_count=1, total_size=file_size)
+        
+        # WebSocket 推送完成
+        try:
+            from backend.services.ws_manager import ws_manager
+            task = get_download_task(task_id)
+            if task and task.get('user_id'):
+                import asyncio
+                asyncio.run_coroutine_threadsafe(
+                    ws_manager.notify_download_progress(task_id, task['user_id'], {
+                        "status": "completed",
+                        "percent": 100,
+                        "filename": os.path.basename(filename)
+                    }),
+                    asyncio.get_event_loop()
+                )
+        except Exception:
+            pass
 
 
 def _build_ydl_opts(task_id: str, url: str, quality: str, cookies_file: Optional[str] = None) -> Dict:
@@ -242,6 +278,22 @@ def run_download(task_id: str, url: str, quality: str, cookies_file: str = None)
                 update_download_task(task_id, status="failed", error_message=err_msg)
                 today = datetime.now().strftime("%Y-%m-%d")
                 update_daily_stats(today, total_downloads=1, fail_count=1)
+                
+                # WebSocket 推送失败
+                try:
+                    from backend.services.ws_manager import ws_manager
+                    task = get_download_task(task_id)
+                    if task and task.get('user_id'):
+                        import asyncio
+                        asyncio.run_coroutine_threadsafe(
+                            ws_manager.notify_download_progress(task_id, task['user_id'], {
+                                "status": "failed",
+                                "error": err_msg[:200]
+                            }),
+                            asyncio.get_event_loop()
+                        )
+                except Exception:
+                    pass
         except Exception as probe_exc:
             err_msg = f"下载失败: {str(e)}; 探测失败: {str(probe_exc)}"
             DOWNLOAD_PROGRESS[task_id] = {"status": "failed", "error": err_msg}

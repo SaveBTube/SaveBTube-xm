@@ -150,7 +150,9 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { downloads } from '@/utils/api.js'
+import { useDownloadStore } from '@/stores/download.js'
 
+const downloadStore = useDownloadStore()
 const tasks = ref([])
 const loading = ref(false)
 const searchQuery = ref('')
@@ -250,11 +252,15 @@ async function deleteTask(task) {
 
 onMounted(() => {
   loadTasks()
-  pollInterval = setInterval(loadTasks, 5000)
+  // WebSocket 实时更新
+  downloadStore.connectWS()
+  // 降级轮询（WebSocket 断开时）
+  pollInterval = setInterval(loadTasks, 10000)
 })
 
 onUnmounted(() => {
   if (pollInterval) clearInterval(pollInterval)
+  downloadStore.disconnectWS()
 })
 </script>
 

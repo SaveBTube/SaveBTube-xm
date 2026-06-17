@@ -1,6 +1,6 @@
-"""Telegram 路由 - 登录/绑定/Bot 管理"""
+"""Telegram 路由 - 登录/绑定/Bot Webhook"""
 import time
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 
 from backend.models.schemas import TelegramLoginRequest, TelegramBindRequest
 from backend.admin.db import (
@@ -104,3 +104,19 @@ async def telegram_bind_account(req: TelegramBindRequest):
 
 # 补充 datetime import
 from datetime import datetime
+
+
+@router.post("/webhook")
+async def telegram_webhook(request: Request):
+    """Telegram Webhook 接收端点
+    
+    在 Telegram BotFather 或 API 中设置 Webhook URL 为：
+    http://your-server:8080/api/admin/telegram/webhook
+    """
+    try:
+        data = await request.json()
+        from backend.admin.telegram_bot import bot_handler
+        await bot_handler.handle_webhook_update(data)
+        return {"status": "ok"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

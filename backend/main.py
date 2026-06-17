@@ -22,6 +22,8 @@ from slowapi.errors import RateLimitExceeded
 from backend.admin.db import init_db, get_setting
 from backend.admin.telegram_bot import bot_handler
 from backend.config import load_config, apply_proxy_from_config
+from backend.services.ws_manager import ws_manager
+from backend.admin.auth import get_token_info
 
 # ==================== 配置 ====================
 
@@ -147,6 +149,37 @@ app.include_router(telegram_router)
 app.include_router(bot_router)
 
 # ==================== 静态文件 ====================
+
+from fastapi import WebSocket, WebSocketDisconnect
+
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket, token: str = None):
+    """WebSocket 端点 - 实时下载进度推送
+    
+    连接方式: ws://host:port/ws?token=JWT_TOKEN
+    """
+    if not token:
+        await websocket.close(code=4001, reason="Missing token")
+        return
+    
+    token_info = get_token_info(token)
+    if not token_info:
+        await websocket.close(code=4001, reason="Invalid token")
+        return
+    
+    user_id = token_info["user_id"]
+    await ws_manager.connect(websocket, user_id)
+    
+    try:
+        while True:
+            # 保持连接，接收客户端心跳
+            data = await websocket.receive_text()
+            if data == "ping":
+                await websocket.send_text("pong")
+    except WebSocketDisconnect:
+        await ws_manager.disconnect(websocket, user_id)
+    except Exception:
+        await ws_manager.disconnect(websocket, user_id)
 
 @app.get("/")
 async def root():
