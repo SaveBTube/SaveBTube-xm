@@ -1,0 +1,23 @@
+# Bosco Tsang
+.DS_Store
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.log
+.env
+downloads/
+cookies/
+data/
+logs/
+node_modules/
+.vscode/
+.idea/
+*.swp
+*.swo

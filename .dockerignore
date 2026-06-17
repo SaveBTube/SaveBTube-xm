@@ -1,0 +1,108 @@
+# ===========================================
+# Bosco Tsang .dockerignore
+# 隐私数据、cookies、日志禁止打包推送
+# ===========================================
+
+# ---- 隐私数据（严禁打包） ----
+.env
+.env.*
+*.secret
+*.key
+*.pem
+*.p12
+*.pfx
+
+# ---- 数据库（含用户数据、Token 等） ----
+data/
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# ---- Cookies（含登录凭据） ----
+cookies/
+*.txt
+!frontend/package*.json
+
+# ---- 日志文件 ----
+logs/
+*.log
+
+# ---- 下载目录 ----
+downloads/
+
+# ---- 发布文档（仅开发用） ----
+releases/
+
+# ---- 工具脚本（仅开发用） ----
+scripts/
+
+# ---- IDE 和编辑器 ----
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ---- Python 缓存 ----
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# ---- Node.js ----
+node_modules/
+frontend/node_modules/
+
+# ---- Docker 相关 ----
+docker-compose.yml
+Dockerfile
+.dockerignore
+
+# ---- Git ----
+.git/
+.gitignore
+
+# ---- Qoder / Codebuddy ----
+.qoder/
+.codebuddy/
+.github/
+
+# ---- 系统文件 ----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- 临时文件 ----
+*.tmp
+*.bak
+*.swp
+
+# ---- 文档和报告（仅开发用） ----
+*.md
+!USAGE_MANUAL.md
+!CHANGELOG.md
+!README.md
+
+# ---- PowerShell 脚本（仅开发用） ----
+*.ps1
+
+# ---- Shell 脚本（仅开发用） ----
+*.sh
+
+# ---- 测试文件 ----
+test_*.py
+check_*.py
+create_test_*.py
+
+# ---- CLI 工具（仅开发用） ----
+cli/
+
+# ---- 备份目录 ----
+backup/

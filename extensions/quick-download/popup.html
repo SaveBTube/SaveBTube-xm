@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bosco Tsang 快速下载</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- 顶部品牌栏 -->
+    <div class="brand-bar">
+      <div class="brand-left">
+        <span class="brand-icon">⚡</span>
+        <div class="brand-text">
+          <span class="brand-name">Bosco Tsang</span>
+          <span class="brand-sub">下载助手</span>
+        </div>
+      </div>
+      <span class="brand-version">v1.2</span>
+    </div>
+
+    <!-- 表单区 -->
+    <div class="form-body">
+      <div class="form-group">
+        <label for="serverUrl">
+          <span class="label-icon">🌐</span> 服务地址
+        </label>
+        <div class="input-box">
+          <input id="serverUrl" type="text" placeholder="http://192.168.x.x:3196" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="apiKey">
+          <span class="label-icon">🔑</span> API Key
+          <span id="saveStatus" class="save-status"></span>
+        </label>
+        <div class="input-box key-box">
+          <input id="apiKey" type="password" placeholder="输入访问密钥" autocomplete="off" />
+          <button class="toggle-key" id="toggleKey" title="显示/隐藏">👁</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="downloadUrl">
+          <span class="label-icon">🔗</span> 下载链接
+        </label>
+        <div class="input-box url-box">
+          <input id="downloadUrl" type="text" placeholder="https://..." />
+          <button id="fillCurrentUrl" class="btn-inline" title="使用当前标签页 URL">📋 当前页</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="quality">
+          <span class="label-icon">🎬</span> 画质选择
+        </label>
+        <div class="select-box">
+          <select id="quality">
+            <option value="best">🎬 最佳质量</option>
+            <option value="1080p">📺 1080p</option>
+            <option value="720p">📺 720p</option>
+            <option value="audio">🎵 仅音频 (MP3)</option>
+            <option value="image">🖼 图片</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- 操作区 -->
+    <div class="action-area">
+      <button id="downloadBtn" class="btn-primary btn-lg">
+        <span class="btn-spark">⬇</span>
+        <span class="btn-text">快速下载</span>
+      </button>
+      <div id="message" class="message"></div>
+    </div>
+
+    <!-- 底部：保存 + 管理后台 -->
+    <div class="footer">
+      <button id="saveBtn" class="footer-btn" title="保存服务地址和 API Key">💾 保存配置</button>
+      <span class="footer-divider"></span>
+      <span id="openSettings" class="footer-link">⚙️ 打开管理后台</span>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

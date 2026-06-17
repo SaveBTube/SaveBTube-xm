@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安装 Bosco 快捷指令</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #007AFF, #5856D6);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 40px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #1a1a1a;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+        
+        .features {
+            margin: 30px 0;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+        
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: #007AFF;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        
+        .feature-text {
+            flex: 1;
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+        
+        .feature-desc {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .btn-install {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #007AFF, #5856D6);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 30px 0;
+            transition: transform 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-install:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-install:active {
+            transform: translateY(0);
+        }
+        
+        .steps {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+        
+        .step {
+            margin: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: 0;
+            font-weight: 600;
+            color: #007AFF;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #856404;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">⬇️</div>
+        <h1>Bosco 快捷指令</h1>
+        <p class="subtitle">在 iPhone 上一键下载视频</p>
+        
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">📱</div>
+                <div class="feature-text">
+                    <div class="feature-title">分享菜单集成</div>
+                    <div class="feature-desc">在任何 App 中点击分享即可下载</div>
+                </div>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">🎬</div>
+                <div class="feature-text">
+                    <div class="feature-title">3000+ 平台支持</div>
+                    <div class="feature-desc">YouTube、Bilibili、Twitter、Instagram 等</div>
+                </div>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">🔔</div>
+                <div class="feature-text">
+                    <div class="feature-title">实时通知</div>
+                    <div class="feature-desc">下载完成自动推送通知</div>
+                </div>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <div class="feature-text">
+                    <div class="feature-title">安全可靠</div>
+                    <div class="feature-desc">API Key 认证，无需登录</div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="btn-install" onclick="installShortcut()">
+            📲 安装快捷指令
+        </button>
+        
+        <div class="steps">
+            <div class="step" data-step="1. ">点击安装按钮</div>
+            <div class="step" data-step="2. ">在弹出窗口中点击"添加快捷指令"</div>
+            <div class="step" data-step="3. ">修改服务器地址为您的服务地址</div>
+            <div class="step" data-step="4. ">首次使用时输入 API Key</div>
+            <div class="step" data-step="5. ">完成！在分享菜单中使用</div>
+        </div>
+        
+        <div class="warning">
+            ⚠️ <strong>注意：</strong>安装后需要编辑快捷指令，将服务器地址修改为您的实际地址（例如：http://192.168.1.100:8080）
+        </div>
+    </div>
+    
+    <script>
+        function installShortcut() {
+            // 快捷指令配置
+            const shortcut = {
+                "workflowClass": "WFWallpaperWorkflow",
+                "actions": [
+                    {
+                        "actionClass": "WFGetClipboardAction",
+                        "actionName": "获取剪贴板",
+                        "parameters": {}
+                    },
+                    {
+                        "actionClass": "WFChooseFromMenuAction",
+                        "actionName": "选择来源",
+                        "parameters": {
+                            "WFMenuItems": ["分享的内容", "剪贴板"],
+                            "WFControlFlowMode": 0
+                        },
+                        "groupActions": [
+                            [
+                                {
+                                    "actionClass": "WFGetInputAction",
+                                    "actionName": "接收输入",
+                                    "parameters": {
+                                        "WFItemType": 5,
+                                        "WFQuestion": "共享的 URL"
+                                    }
+                                }
+                            ],
+                            []
+                        ]
+                    },
+                    {
+                        "actionClass": "WFTextAction",
+                        "actionName": "设定服务器地址",
+                        "parameters": {
+                            "WFText": "http://your-server:8080"
+                        }
+                    },
+                    {
+                        "actionClass": "WFSetVariableAction",
+                        "actionName": "保存服务器地址",
+                        "parameters": {
+                            "WFVariableName": "ServerURL"
+                        }
+                    },
+                    {
+                        "actionClass": "WFAskForTextAction",
+                        "actionName": "输入 API Key",
+                        "parameters": {
+                            "WFCustomPrompt": "请输入您的 API Key",
+                            "WFHidePrompt": true
+                        }
+                    },
+                    {
+                        "actionClass": "WFSetVariableAction",
+                        "actionName": "保存 API Key",
+                        "parameters": {
+                            "WFVariableName": "APIKey"
+                        }
+                    },
+                    {
+                        "actionClass": "WFDictionaryAction",
+                        "actionName": "构建请求体",
+                        "parameters": {
+                            "WFItems": {
+                                "url": "{{选择来源的结果}}",
+                                "quality": "best"
+                            }
+                        }
+                    },
+                    {
+                        "actionClass": "WFDictionaryAction",
+                        "actionName": "构建请求头",
+                        "parameters": {
+                            "WFItems": {
+                                "X-API-Key": "{{APIKey}}",
+                                "Content-Type": "application/json"
+                            }
+                        }
+                    },
+                    {
+                        "actionClass": "WFDownloadURLAction",
+                        "actionName": "发送下载请求",
+                        "parameters": {
+                            "WFURL": "{{ServerURL}}/api/shortcuts/download",
+                            "WFRequestMethod": "POST",
+                            "WFRequestHeaders": "{{构建请求头}}",
+                            "WFRequestURLBodyType": "JSON",
+                            "WFRequestURLBody": "{{构建请求体}}"
+                        }
+                    },
+                    {
+                        "actionClass": "WFGetDetailsForResult",
+                        "actionName": "获取响应",
+                        "parameters": {
+                            "WFResultType": "Response Body"
+                        }
+                    },
+                    {
+                        "actionClass": "WFJSONAction",
+                        "actionName": "解析 JSON",
+                        "parameters": {}
+                    },
+                    {
+                        "actionClass": "WFGetValueForKeyAction",
+                        "actionName": "获取消息",
+                        "parameters": {
+                            "WFDictionaryKey": "message"
+                        }
+                    },
+                    {
+                        "actionClass": "WFGetValueForKeyAction",
+                        "actionName": "获取平台",
+                        "parameters": {
+                            "WFDictionaryKey": "platform"
+                        }
+                    },
+                    {
+                        "actionClass": "WFShowResultAction",
+                        "actionName": "显示通知",
+                        "parameters": {
+                            "WFInput": "✅ 下载成功\n平台: {{获取平台}}\n{{获取消息}}"
+                        }
+                    }
+                ],
+                "name": "Bosco 下载",
+                "icon": {
+                    "glyph": "arrow.down.circle",
+                    "startColor": "#007AFF",
+                    "endColor": "#5856D6"
+                },
+                "types": {
+                    "inputTypes": ["URL"],
+                    "outputTypes": ["Text"]
+                },
+                "shareSheetEnabled": true,
+                "isWorkflow": true
+            };
+            
+            // 创建 iCloud 分享链接
+            const shortcutJSON = JSON.stringify(shortcut);
+            const shortcutURL = 'shortcuts://create-shortcut?input=' + encodeURIComponent(shortcutJSON);
+            
+            // 在 iOS 上打开
+            window.location.href = shortcutURL;
+            
+            // 如果不是 iOS，显示提示
+            setTimeout(() => {
+                if (!/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+                    alert('请在 iPhone 或 iPad 上使用 Safari 浏览器打开此页面');
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

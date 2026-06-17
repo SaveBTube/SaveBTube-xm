@@ -1,0 +1,58 @@
+# ===========================================
+# Bosco Tsang Docker Compose (多容器版)
+# 全平台视频/音乐/图片下载系统
+# ===========================================
+# 版本: v1.0.0
+# 包含: 主服务 + QQ Bot (可选)
+# ===========================================
+
+services:
+  # ========== 主服务 ==========
+  bosco-tsang:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bosco-tsang
+    ports:
+      - "8080:8000"
+    volumes:
+      - ./downloads:/app/downloads
+      - ./cookies:/app/cookies
+      - ./data:/app/data
+      - ./logs:/app/logs
+    environment:
+      - APP_BASE_DIR=/app
+      - DOWNLOAD_DIR=/app/downloads
+      - COOKIES_DIR=/app/cookies
+      - LOGS_DIR=/app/logs
+      - HTTP_PROXY=
+      - HTTPS_PROXY=
+      - TZ=Asia/Shanghai
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import socket; s = socket.socket(); result = s.connect_ex(('localhost', 8000)); s.close(); exit(0 if result == 0 else 1)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # ========== QQ Bot (可选) ==========
+  # 使用 Lagrange.OneBot 实现 QQ 协议
+  # 启用方式: docker compose --profile qq up -d
+  qq-bot:
+    image: ghcr.io/lagrandev/lagrange.onebot:latest
+    container_name: bosco-qq-bot
+    profiles:
+      - qq
+    ports:
+      - "8081:8080"   # OneBot HTTP API
+    volumes:
+      - ./qq-bot-data:/app/data
+    environment:
+      - TZ=Asia/Shanghai
+    restart: unless-stopped
+    # 配置说明:
+    # 1. 首次启动后编辑 qq-bot-data/appsettings.json
+    # 2. 配置 QQ 账号信息
+    # 3. 设置 HTTP POST 上报地址: http://bosco-tsang:8000/api/bot/qq/webhook
+    # 4. 重启: docker compose --profile qq restart qq-bot

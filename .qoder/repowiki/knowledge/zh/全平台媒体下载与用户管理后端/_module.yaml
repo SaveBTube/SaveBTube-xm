@@ -1,0 +1,9 @@
+schema_version: 1
+module_path: backend
+title: 全平台媒体下载与用户管理后端
+scope:
+    - backend/
+source_files: []
+depends_on: []
+related_to:
+    - path: frontend

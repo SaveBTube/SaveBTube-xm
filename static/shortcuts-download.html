@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>下载 Bosco 快捷指令</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 24px;
+            padding: 40px 30px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .icon {
+            width: 80px; height: 80px;
+            background: linear-gradient(135deg, #007AFF, #5856D6);
+            border-radius: 20px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 40px;
+        }
+        h1 { text-align: center; color: #1a1a1a; font-size: 28px; margin-bottom: 10px; }
+        .subtitle { text-align: center; color: #666; font-size: 16px; margin-bottom: 30px; }
+        .btn-download {
+            display: block; width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #007AFF, #5856D6);
+            color: white; text-align: center; text-decoration: none;
+            border-radius: 12px; font-size: 18px; font-weight: 600;
+            margin: 20px 0; border: none; cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .btn-download:hover { transform: translateY(-2px); }
+        .btn-download:active { transform: translateY(0); }
+        .steps {
+            background: #f8f9fa; padding: 20px;
+            border-radius: 12px; margin-top: 20px;
+        }
+        .step {
+            margin: 12px 0; padding-left: 35px;
+            position: relative; color: #666; font-size: 14px; line-height: 1.6;
+        }
+        .step::before {
+            content: attr(data-step);
+            position: absolute; left: 0;
+            font-weight: 600; color: #007AFF;
+        }
+        .warning {
+            background: #fff3cd; border-left: 4px solid #ffc107;
+            padding: 15px; border-radius: 8px;
+            margin: 20px 0; font-size: 14px; color: #856404;
+        }
+        .config-form {
+            background: #f0f9ff; padding: 20px;
+            border-radius: 12px; margin: 20px 0;
+        }
+        .form-group { margin-bottom: 15px; }
+        .form-label {
+            display: block; font-size: 14px;
+            font-weight: 600; color: #333; margin-bottom: 8px;
+        }
+        .form-input {
+            width: 100%; padding: 12px;
+            border: 2px solid #bae6fd; border-radius: 8px;
+            font-size: 14px;
+        }
+        .form-input:focus {
+            outline: none; border-color: #007AFF;
+        }
+        .form-hint {
+            font-size: 12px; color: #666; margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">⬇️</div>
+        <h1>Bosco 快捷指令</h1>
+        <p class="subtitle">下载并安装到 iPhone</p>
+        
+        <a href="/api/shortcuts/download-file" class="btn-download">
+            📲 下载快捷指令
+        </a>
+        
+        <div class="steps">
+            <div class="step" data-step="1. ">点击"下载快捷指令"按钮</div>
+            <div class="step" data-step="2. ">在弹出窗口中点击"打开"</div>
+            <div class="step" data-step="3. ">点击"添加快捷指令"</div>
+            <div class="step" data-step="4. ">编辑快捷指令，修改服务器地址和 API Key</div>
+            <div class="step" data-step="5. ">完成！在分享菜单中使用</div>
+        </div>
+        
+        <div class="warning">
+            ⚠️ <strong>注意：</strong>下载后需要在快捷指令 App 中编辑，修改服务器地址和 API Key。
+        </div>
+    </div>
+</body>
+</html>

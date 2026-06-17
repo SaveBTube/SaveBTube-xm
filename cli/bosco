@@ -1,0 +1,5 @@
+# Bosco Tsang CLI
+#!/bin/bash
+
+# CLI 入口脚本
+python3 /path/to/bosco.py "$@"

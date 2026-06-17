@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Bosco Tsang 快速下载",
+  "description": "将当前页面链接发送到 Bosco Tsang 下载系统的快速下载插件。",
+  "version": "1.2.0",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "contextMenus",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "快速下载"
+  }
+}

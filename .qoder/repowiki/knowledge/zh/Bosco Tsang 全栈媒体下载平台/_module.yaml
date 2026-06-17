@@ -1,0 +1,147 @@
+schema_version: 1
+module_path: ""
+title: Bosco Tsang 全栈媒体下载平台
+scope:
+    - .codebuddy/
+    - .github/
+    - docs/
+    - releases/
+    - scripts/
+    - shortcuts/
+    - static/
+    - .dockerignore
+    - .gitignore
+    - BoscoTsang.toml
+    - Dockerfile
+    - QUICK_REFERENCE.md
+    - USAGE_MANUAL.md
+    - docker-compose.yml
+    - package-lock.json
+    - start_backend.bat
+    - start_frontend.bat
+    - test.shortcut
+    - test_bosco.shortcut
+    - test_shortcut.shortcut
+    - .codebuddy\memory\2025-06-16.md
+    - .codebuddy\memory\2026-06-16.md
+    - .env.example
+    - .github\workflows\docker-multiarch.yml
+    - .qoder\repowiki\knowledge\zh\Bosco Tsang 全平台媒体下载后端服务\_module.yaml
+    - .qoder\repowiki\knowledge\zh\Bosco Tsang 全平台媒体下载后端服务\技术栈.md
+    - .qoder\repowiki\knowledge\zh\Bosco Tsang 全平台媒体下载后端服务\架构设计.md
+    - .qoder\repowiki\knowledge\zh\Bosco Tsang 全平台媒体下载后端服务\概述.md
+    - .qoder\repowiki\knowledge\zh\Bosco Tsang 全平台媒体下载后端服务\编码规范.md
+    - .qoder\repowiki\knowledge\zh\Bosco Tsang 全栈媒体下载平台\_module.yaml
+    - .qoder\repowiki\knowledge\zh\Bosco Tsang 全栈媒体下载平台\技术栈.md
+    - .qoder\repowiki\knowledge\zh\Bosco Tsang 全栈媒体下载平台\架构设计.md
+    - .qoder\repowiki\knowledge\zh\Bosco Tsang 全栈媒体下载平台\概述.md
+    - .qoder\repowiki\knowledge\zh\Bosco Tsang 全栈媒体下载平台\特殊配置与命令.md
+    - .qoder\repowiki\knowledge\zh\Bosco Tsang 全栈媒体下载平台\编码规范.md
+    - .qoder\repowiki\knowledge\zh\Bosco Tsang 前端管理控制台\_module.yaml
+    - .qoder\repowiki\knowledge\zh\Bosco Tsang 前端管理控制台\技术栈.md
+    - .qoder\repowiki\knowledge\zh\Bosco Tsang 前端管理控制台\架构设计.md
+    - .qoder\repowiki\knowledge\zh\Bosco Tsang 前端管理控制台\概述.md
+    - .qoder\repowiki\knowledge\zh\Bosco Tsang 前端管理控制台\特殊配置与命令.md
+    - .qoder\repowiki\knowledge\zh\Bosco Tsang 前端管理控制台\编码规范.md
+    - .qoder\repowiki\knowledge\zh\_index.yaml
+    - CHANGELOG.md
+    - FEATURES.md
+    - INDEX.md
+    - README.md
+    - SUMMARY.md
+    - backend.log
+    - backend\__init__.py
+    - backend\admin\__init__.py
+    - backend\admin\auth.py
+    - backend\admin\db.py
+    - backend\admin\telegram_bot.py
+    - backend\admin\twitter_downloader.py
+    - backend\config.py
+    - backend\main.py
+    - cli\bosco
+    - cli\bosco.py
+    - cookies\bilibili.txt
+    - data\bosco.db
+    - docs\DEPLOYMENT.md
+    - docs\DOCUMENT_UPDATE_GUIDE.md
+    - docs\DOCUMENT_UPDATE_v0.4.0.md
+    - docs\DOCUMENT_UPDATE_v0.4.1.md
+    - docs\IOS_SHORTCUTS_GUIDE.md
+    - docs\IOS_SHORTCUTS_INTEGRATION_REPORT.md
+    - docs\QUICK_REFERENCE.md
+    - docs\SYSTEM_ANALYSIS.md
+    - docs\USAGE.md
+    - downloads\bilibili\陈翔六点半：欲买桂花同载酒，终不似，少年游.mp4
+    - downloads\bilibili\陈翔六点半：这是我参加过反转最多的婚礼.mp4
+    - downloads\youtube\Rick Astley - Never Gonna Give You Up (Official Video) (4K Remaster).mp4
+    - extensions\quick-download\README.md
+    - extensions\quick-download\background.js
+    - extensions\quick-download\manifest.json
+    - extensions\quick-download\popup.html
+    - extensions\quick-download\popup.js
+    - extensions\quick-download\styles.css
+    - frontend\index.html
+    - frontend\package-lock.json
+    - frontend\package.json
+    - frontend\public\shortcuts-install.html
+    - frontend\src\App.vue
+    - frontend\src\main.js
+    - frontend\src\router.js
+    - frontend\src\style.css
+    - frontend\src\utils\api.js
+    - frontend\src\views\Dashboard.vue
+    - frontend\src\views\Downloads.vue
+    - frontend\src\views\FilesManager.vue
+    - frontend\src\views\History.vue
+    - frontend\src\views\Layout.vue
+    - frontend\src\views\Login.vue
+    - frontend\src\views\Logs.vue
+    - frontend\src\views\Monitor.vue
+    - frontend\src\views\Settings.vue
+    - frontend\src\views\Subscriptions.vue
+    - frontend\vite.config.js
+    - logs\app_2026-06-15.log
+    - logs\app_2026-06-16.log
+    - releases\ARM64_PUSH_GUIDE.md
+    - releases\DEPLOYMENT.md
+    - releases\DOCKER_PUSH_REPORT.md
+    - releases\FINAL_ORGANIZATION_REPORT.md
+    - releases\LOCAL_TEST_PORTS.md
+    - releases\ORGANIZATION_REPORT.md
+    - releases\QUICK_ARM64_PUSH.md
+    - releases\README.md
+    - releases\RELEASE_WORKFLOW.md
+    - releases\TELEGRAM_BOT_FIX.md
+    - releases\TELEGRAM_DIAGNOSIS.md
+    - releases\update-v0.4.0.ps1
+    - releases\update-v0.4.1.ps1
+    - releases\v0.3.x\DEPLOYMENT_COMPLETE.md
+    - releases\v0.3.x\DOCKER_PUSH_v0.3.1.md
+    - releases\v0.3.x\FIXES_REPORT.md
+    - releases\v0.3.x\VERIFICATION_GUIDE.md
+    - releases\v0.4.x\DOCKER_PUSH_v0.4.0.md
+    - releases\v0.4.x\DOCKER_PUSH_v0.4.1.md
+    - releases\v0.4.x\DOCKER_PUSH_v0.4.2.md
+    - releases\v0.4.x\DOCKER_PUSH_v0.4.3.md
+    - releases\v0.4.x\DOCKER_PUSH_v0.4.4.md
+    - scripts\README.md
+    - scripts\check_db.py
+    - scripts\check_telegram_config.py
+    - scripts\clean-before-push.ps1
+    - scripts\clean-before-push.sh
+    - scripts\create_test_data.py
+    - scripts\create_test_data_simple.py
+    - scripts\test_telegram.py
+    - scripts\test_telegram_full.py
+    - scripts\update-docs.ps1
+    - scripts\update-version.ps1
+    - scripts\update-version.sh
+    - shortcuts\Bosco_Download.shortcut
+    - shortcuts\INSTALL_GUIDE.md
+    - shortcuts\README.md
+    - shortcuts\USAGE.md
+    - static\shortcuts-download.html
+    - static\shortcuts-install.html
+source_files: []
+depends_on: []
+related_to: []

@@ -1,0 +1,139 @@
+{
+  "workflowClass": "WFWallpaperWorkflow",
+  "actions": [
+    {
+      "actionClass": "WFGetClipboardAction",
+      "actionName": "获取剪贴板",
+      "parameters": {}
+    },
+    {
+      "actionClass": "WFChooseFromMenuAction",
+      "actionName": "选择来源",
+      "parameters": {
+        "WFMenuItems": [
+          "分享的内容",
+          "剪贴板"
+        ],
+        "WFControlFlowMode": 0
+      },
+      "groupActions": [
+        [
+          {
+            "actionClass": "WFGetInputAction",
+            "actionName": "接收输入",
+            "parameters": {
+              "WFItemType": 5,
+              "WFQuestion": "共享的 URL"
+            }
+          }
+        ],
+        []
+      ]
+    },
+    {
+      "actionClass": "WFTextAction",
+      "actionName": "设定服务器地址",
+      "parameters": {
+        "WFText": "http://your-server:8080"
+      }
+    },
+    {
+      "actionClass": "WFSetVariableAction",
+      "actionName": "保存服务器地址",
+      "parameters": {
+        "WFVariableName": "ServerURL"
+      }
+    },
+    {
+      "actionClass": "WFAskForTextAction",
+      "actionName": "输入 API Key",
+      "parameters": {
+        "WFCustomPrompt": "请输入您的 API Key",
+        "WFHidePrompt": true
+      }
+    },
+    {
+      "actionClass": "WFSetVariableAction",
+      "actionName": "保存 API Key",
+      "parameters": {
+        "WFVariableName": "APIKey"
+      }
+    },
+    {
+      "actionClass": "WFDictionaryAction",
+      "actionName": "构建请求体",
+      "parameters": {
+        "WFItems": {
+          "url": "{{选择来源的结果}}",
+          "quality": "best"
+        }
+      }
+    },
+    {
+      "actionClass": "WFDictionaryAction",
+      "actionName": "构建请求头",
+      "parameters": {
+        "WFItems": {
+          "X-API-Key": "{{APIKey}}",
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "actionClass": "WFDownloadURLAction",
+      "actionName": "发送下载请求",
+      "parameters": {
+        "WFURL": "{{ServerURL}}/api/shortcuts/download",
+        "WFRequestMethod": "POST",
+        "WFRequestHeaders": "{{构建请求头}}",
+        "WFRequestURLBodyType": "JSON",
+        "WFRequestURLBody": "{{构建请求体}}"
+      }
+    },
+    {
+      "actionClass": "WFGetDetailsForResult",
+      "actionName": "获取响应",
+      "parameters": {
+        "WFResultType": "Response Body"
+      }
+    },
+    {
+      "actionClass": "WFJSONAction",
+      "actionName": "解析 JSON",
+      "parameters": {}
+    },
+    {
+      "actionClass": "WFGetValueForKeyAction",
+      "actionName": "获取消息",
+      "parameters": {
+        "WFDictionaryKey": "message"
+      }
+    },
+    {
+      "actionClass": "WFGetValueForKeyAction",
+      "actionName": "获取平台",
+      "parameters": {
+        "WFDictionaryKey": "platform"
+      }
+    },
+    {
+      "actionClass": "WFShowResultAction",
+      "actionName": "显示通知",
+      "parameters": {
+        "WFInput": "✅ 下载成功\n平台: {{获取平台}}\n{{获取消息}}"
+      }
+    }
+  ],
+  "name": "Bosco 下载",
+  "icon": {
+    "glyph": "arrow.down.circle",
+    "startColor": "#007AFF",
+    "endColor": "#5856D6"
+  },
+  "types": {
+    "inputTypes": ["URL"],
+    "outputTypes": ["Text"]
+  },
+  "shareSheetEnabled": true,
+  "isWorkflow": true
+}

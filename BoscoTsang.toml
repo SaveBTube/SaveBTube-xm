@@ -1,0 +1,27 @@
+# BoscoTsang configuration file
+# Edit these values to control proxy behavior and other runtime options.
+
+[proxy]
+# Enable or disable proxy handling by the application. True/False
+enabled = true
+
+# Proxy mode:
+# - "global": 所有请求都走代理（设置环境变量 HTTP_PROXY/HTTPS_PROXY）
+# - "none": 禁用代理，所有请求直连
+# - "auto": 仅针对被认为是“国外站点”的请求使用代理（需要在应用中实现判断）
+mode = "auto"
+
+# HTTP/HTTPS proxy server URLs (leave empty to disable specific protocol)
+http = "http://127.0.0.1:8080"
+https = "http://127.0.0.1:8080"
+
+# CIDR 列表，表示本地/国内网段，匹配这些网段将绕过代理（仅做参考）
+bypass_cidrs = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16", "127.0.0.0/8"]
+
+[download]
+# 默认文件保存根目录（可空，使用 APP_BASE_DIR 下的 downloads）
+download_dir = ""
+
+[logging]
+# 日志级别：DEBUG/INFO/WARNING/ERROR
+level = "INFO"
