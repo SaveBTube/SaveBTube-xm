@@ -578,6 +578,44 @@
           
           <button class="btn btn-primary" @click="savePlatformSettings">保存 X/Twitter 设置</button>
         </div>
+        <div v-else-if="activeServiceTab === 'qqbot'">
+          <h4>🤖 QQ 机器人配置</h4>
+          <div class="platform-info-banner">
+            <p>📡 基于 OneBot v11 协议（Lagrange / NapCat / go-cqhttp）</p>
+            <p>🔗 需要先部署 OneBot 实现，然后配置 API 地址</p>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-item full-width">
+              <label>OneBot HTTP API 地址</label>
+              <input v-model="settingsForm.qq_bot_api_url" type="text" class="input" placeholder="http://localhost:3000" />
+              <p class="form-hint">Lagrange/NapCat 的 HTTP API 地址，Docker 部署时使用容器名: http://bosco-qq-bot:8080</p>
+            </div>
+          </div>
+          <div class="bot-status-card" v-if="botStatus.qq">
+            <span class="status-dot" :class="botStatus.qq.enabled ? 'green' : 'gray'"></span>
+            <span>{{ botStatus.qq.enabled ? '已启用' : '未启用' }}</span>
+          </div>
+          <button class="btn btn-primary" @click="savePlatformSettings">保存 QQ Bot 设置</button>
+        </div>
+        <div v-else-if="activeServiceTab === 'wechatbot'">
+          <h4>💬 微信 ClawBot 配置</h4>
+          <div class="platform-info-banner">
+            <p>🔗 通过 Webhook 与 OpenClaw/ClawBot 集成</p>
+            <p>📡 ClawBot 将消息转发到本系统，下载完成后自动回复</p>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-item full-width">
+              <label>ClawBot 回调 URL</label>
+              <input v-model="settingsForm.wechat_clawbot_callback_url" type="text" class="input" placeholder="https://your-clawbot-server/callback" />
+              <p class="form-hint">ClawBot 接收消息的回调地址，用于主动发送下载完成通知</p>
+            </div>
+          </div>
+          <div class="bot-status-card" v-if="botStatus.wechat">
+            <span class="status-dot" :class="botStatus.wechat.enabled ? 'green' : 'gray'"></span>
+            <span>{{ botStatus.wechat.enabled ? '已启用' : '未启用' }}</span>
+          </div>
+          <button class="btn btn-primary" @click="savePlatformSettings">保存微信 Bot 设置</button>
+        </div>
         <div v-else class="platform-placeholder">
           <h4>{{ platformTabs.find(tab => tab.id === activeServiceTab)?.name }}</h4>
           <p>当前平台暂无可配置项。您可以在此处查看平台支持状态与说明。</p>
@@ -716,7 +754,11 @@ const settingsForm = ref({
   xtwitter_quality: 'best',
   proxy_enabled: false,
   http_proxy: '',
-  https_proxy: ''
+  https_proxy: '',
+  // QQ Bot
+  qq_bot_api_url: '',
+  // 微信 ClawBot
+  wechat_clawbot_callback_url: ''
 })
 const platformTabs = ref([
   { id: 'telegram', name: 'Telegram' },
@@ -729,9 +771,12 @@ const platformTabs = ref([
   { id: 'douyin', name: '抖音' },
   { id: 'kuaishou', name: '快手' },
   { id: 'instagram', name: 'Instagram' },
-  { id: 'wechat', name: '微信视频号' }
+  { id: 'wechat', name: '微信视频号' },
+  { id: 'qqbot', name: 'QQ 机器人' },
+  { id: 'wechatbot', name: '微信 ClawBot' }
 ])
 const activeServiceTab = ref('telegram')
+const botStatus = ref({})
 const showUserModal = ref(false)
 const isEditUser = ref(false)
 const userForm = ref({ username: '', password: '', role: 'user', is_active: 1, id: null })
@@ -793,7 +838,11 @@ async function loadSettings() {
       xtwitter_quality: data.xtwitter_quality || 'best',
       proxy_enabled: proxyEnabled,
       http_proxy: httpProxy,
-      https_proxy: httpsProxy
+      https_proxy: httpsProxy,
+      // QQ Bot
+      qq_bot_api_url: data.qq_bot_api_url || '',
+      // 微信 ClawBot
+      wechat_clawbot_callback_url: data.wechat_clawbot_callback_url || ''
     }
 
     // 填充代理原始输入（去掉协议前缀方便编辑）
@@ -889,7 +938,11 @@ async function savePlatformSettings() {
       xtwitter_download_video: settingsForm.value.xtwitter_download_video,
       xtwitter_download_images: settingsForm.value.xtwitter_download_images,
       xtwitter_best_quality: settingsForm.value.xtwitter_best_quality,
-      xtwitter_quality: settingsForm.value.xtwitter_quality
+      xtwitter_quality: settingsForm.value.xtwitter_quality,
+      // QQ Bot
+      qq_bot_api_url: settingsForm.value.qq_bot_api_url,
+      // 微信 ClawBot
+      wechat_clawbot_callback_url: settingsForm.value.wechat_clawbot_callback_url
     })
     alert('✅ 平台设置已保存')
   } catch (error) {
@@ -1126,7 +1179,21 @@ onMounted(async () => {
   }
   await loadApiKeys()
   await loadPluginInfo()
+  await loadBotStatus()
 })
+
+async function loadBotStatus() {
+  try {
+    const resp = await fetch('/api/bot/status', {
+      headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+    })
+    if (resp.ok) {
+      botStatus.value = await resp.json()
+    }
+  } catch (e) {
+    console.error('加载 Bot 状态失败:', e)
+  }
+}
 </script>
 
 <style scoped>
@@ -1427,6 +1494,13 @@ onMounted(async () => {
 }
 
 /* ==================== 平台设置 ==================== */
+.platform-info-banner { background: #e8f4fd; border: 1px solid #b3d9f2; border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; font-size: 14px; color: #1a73e8; }
+.platform-info-banner p { margin: 4px 0; }
+.bot-status-card { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: #f5f5f7; border-radius: 8px; margin: 12px 0; font-size: 14px; }
+.status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.status-dot.green { background: #34c759; }
+.status-dot.gray { background: #8e8e93; }
+.form-hint { font-size: 12px; color: #86868b; margin-top: 4px; }
 .platform-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
 .platform-tab {
   padding: 8px 14px; border-radius: var(--radius); background: var(--bg-primary);
